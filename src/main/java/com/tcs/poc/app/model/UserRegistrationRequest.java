@@ -35,7 +35,7 @@ public class UserRegistrationRequest implements Serializable {
     private Date lastModifiedDate;
     private String createdBy;
     private String modifiedBy;
-    private Role role;
+    private int role;
     private int registrationStatus;
 
 }

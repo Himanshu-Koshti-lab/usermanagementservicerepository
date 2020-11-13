@@ -10,6 +10,5 @@ import com.tcs.poc.app.entity.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-	Role findById(Role role);
 
 }

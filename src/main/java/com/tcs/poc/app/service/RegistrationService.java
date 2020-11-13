@@ -25,7 +25,9 @@ public class RegistrationService {
 	public UserRegistrationResponse registerUser(UserRegistrationRequest userRegistrationRequest) {
 		UserRegistrationResponse userRegistrationResponse = new UserRegistrationResponse();
 		try {
-			Role role = roleRepository.findById(userRegistrationRequest.getRole());
+			Optional<Role> role = roleRepository.findById(userRegistrationRequest.getRole());
+			System.out.println(role.get());
+			System.out.println(userRegistrationRequest.getRole());
 			User user = new User();
 			user.setAnswer(userRegistrationRequest.getAnswer());
 			user.setCreatedBy(userRegistrationRequest.getEmailID());
@@ -49,7 +51,7 @@ public class RegistrationService {
 			user.setPermanentCity(userRegistrationRequest.getPermanentCity());
 			user.setPermanentState(userRegistrationRequest.getPermanentState());
 			user.setPermanentZipcode(userRegistrationRequest.getPermanentZipcode());
-			user.setRole(role);
+			user.setRole(role.get());
 			user.setSecurityQuestion(userRegistrationRequest.getSecurityQuestion());
 			user.setRegistrationStatus(1);
 
