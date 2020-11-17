@@ -40,7 +40,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 //			.authenticated();
 		http
 		.csrf().disable()
-		.authorizeRequests().antMatchers("/oauth/token","/login","/service/register-user").permitAll()
+		.authorizeRequests().antMatchers("/oauth/token","/login","/service/register-user","/forgotPasswordByQuestion","/forgotPasswordByOtp","/VerifyOtp").permitAll()
 //		.antMatchers("/Admin").hasRole("ADMIN")
 //		.antMatchers("/User").hasRole("USER")
 		.antMatchers("/Admin").hasRole("ADMIN")

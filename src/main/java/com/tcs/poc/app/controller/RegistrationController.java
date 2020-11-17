@@ -16,6 +16,7 @@ import com.tcs.poc.app.service.RegistrationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @RestController
@@ -26,6 +27,8 @@ public class RegistrationController {
     @Autowired
     private RegistrationService registerationService;
     
+    @Autowired
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
     
     @RequestMapping(method = RequestMethod.POST, value = "/register-user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserRegistrationResponse> registerUser(
@@ -34,6 +37,9 @@ public class RegistrationController {
     	String tempEmailID=userRegistrationRequest.getEmailID();
     	
     	long tempMobileNo = userRegistrationRequest.getMobileNo();
+    	
+    	System.out.println(bcryptPasswordEncoder.encode(userRegistrationRequest.getPassword()));
+    	userRegistrationRequest.setPassword(bcryptPasswordEncoder.encode(userRegistrationRequest.getPassword()));
     	
     	
     	if(tempEmailID !=null && !"".equals(tempEmailID) && !"".equals(tempMobileNo))
