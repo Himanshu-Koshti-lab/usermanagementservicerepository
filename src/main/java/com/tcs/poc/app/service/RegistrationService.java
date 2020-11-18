@@ -56,7 +56,27 @@ public class RegistrationService {
 			user.setRegistrationStatus(1);
 
 			User userResponse = userRepository.save(user);
-			userRegistrationResponse.setUser(userResponse);
+			userRegistrationResponse.setId(userResponse.getId());
+			userRegistrationResponse.setFirstName(userResponse.getFirstName());
+			userRegistrationResponse.setMiddleName(userResponse.getMiddleName());
+			userRegistrationResponse.setLastName(userResponse.getLastName());
+			userRegistrationResponse.setEmailID(userResponse.getEmailID());
+			userRegistrationResponse.setMobileNo(userResponse.getMobileNo());
+			userRegistrationResponse.setDob(userResponse.getDob());
+			userRegistrationResponse.setGender(userResponse.getGender());
+			userRegistrationResponse.setCurrentAddress(userResponse.getCurrentAddress());
+			userRegistrationResponse.setCurrentCity(userResponse.getCurrentCity());
+			userRegistrationResponse.setCurrentState(userResponse.getCurrentState());
+			userRegistrationResponse.setCurrentZipcode(userResponse.getCurrentZipcode());
+			userRegistrationResponse.setPermanentAddress(userResponse.getPermanentAddress());
+			userRegistrationResponse.setPermanentCity(userResponse.getPermanentCity());
+			userRegistrationResponse.setPermanentState(userResponse.getPermanentState());
+			userRegistrationResponse.setPermanentZipcode(userResponse.getPermanentZipcode());
+			userRegistrationResponse.setSecurityQuestion(userResponse.getSecurityQuestion());
+			userRegistrationResponse.setAnswer(userResponse.getAnswer());
+			userRegistrationResponse.setRole(userResponse.getRole().getId());
+			
+			
 
 			userRegistrationResponse.setStatusMessage("User registration successfull");
 			return userRegistrationResponse;
