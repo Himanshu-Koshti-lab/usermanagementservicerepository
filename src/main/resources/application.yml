@@ -1,5 +1,22 @@
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
+  instance:
+    hostname: localhost
+server:
+  port: 8081
+spring:
+  application:
+    name: userManagement-service
+    
+     
 security:
   oauth2:
     client:
       clientId: ABCD
       clientSecret: ABCD
+      
+      
