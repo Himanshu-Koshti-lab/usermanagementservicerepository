@@ -16,7 +16,7 @@ import com.tcs.poc.app.service.LoginService;
 
 
 @RestController
-@CrossOrigin
+//@CrossOrigin(origins = "http://localhost:4200")
 public class LoginController {
 
 	@Autowired

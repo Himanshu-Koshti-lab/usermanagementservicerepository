@@ -21,7 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @RestController
 @RequestMapping("/service")
-@CrossOrigin
+//@CrossOrigin
 public class RegistrationController {
     
     @Autowired

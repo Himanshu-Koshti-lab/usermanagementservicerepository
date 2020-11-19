@@ -46,6 +46,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		.antMatchers("/Admin").hasRole("ADMIN")
 		.antMatchers("/Customer").hasRole("CUSTOMER")
 		.antMatchers("/Employee").hasRole("EMPLOYEE")
-		.anyRequest().authenticated();
+		.anyRequest().authenticated()
+		.and()
+		.cors();
 	}
 }
