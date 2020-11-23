@@ -10,8 +10,6 @@ import com.tcs.poc.app.entity.User;
 import com.tcs.poc.app.model.UserForgotPasswordOtpGenRequest;
 import com.tcs.poc.app.model.UserForgotPasswordOtpValidationRequest;
 import com.tcs.poc.app.model.UserForgotPasswordQuestionRequest;
-import com.tcs.poc.app.model.UserLoginRequest;
-import com.tcs.poc.app.model.UserLoginResponse;
 import com.tcs.poc.app.repository.UserRepository;
 
 
@@ -27,34 +25,7 @@ public class LoginService {
 	@Autowired
 	private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 	
-	public UserLoginResponse GetUserLogin(UserLoginRequest user) throws Exception {
-		String emailString = user.getEmailID();
-		String passString = user.getPassword();
-		if (emailString == null || "".equals(emailString)) {
-			throw new Exception("Please fill Email");
-		} else if (passString == null || "".equals(passString)) {
-			throw new Exception("Please fill password");
-		} else {
-			User temp = repository.findByEmailID(emailString);
-			if (temp == null) {
-				throw new Exception(DNF + "User not in DB");
-			} else if (temp.getPassword() != null && !temp.getPassword().isEmpty()) {
-				if(temp.getRegistrationStatus()==1)
-				{
-					throw new Exception("User registration pending for review");
-				}
-				else if (temp.getEmailID().equals(emailString) && encoder.matches(passString,temp.getPassword()) && temp.getRegistrationStatus()==2) {
-					temp.setPassword(null);
-					UserLoginResponse response =  new UserLoginResponse();
-					response.setUser(temp);
-					return response;
-				} else
-					throw new Exception("Password Doesnot Match");
-			}
-			throw new Exception("Email or Password Empty");
-		}
-	}
-
+	
 
 
 	public boolean forgotPasswordByOtp(UserForgotPasswordOtpGenRequest user) throws Exception {

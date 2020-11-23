@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.tcs.poc.app.entity.Role;
 import com.tcs.poc.app.entity.User;
+import com.tcs.poc.app.entity.UserRegistrationStatus;
 import com.tcs.poc.app.model.UserRegistrationRequest;
 import com.tcs.poc.app.model.UserRegistrationResponse;
 import com.tcs.poc.app.repository.RoleRepository;
+import com.tcs.poc.app.repository.UserRegistrationStatusRepository;
 import com.tcs.poc.app.repository.UserRepository;
 
 @Service
@@ -21,11 +23,15 @@ public class RegistrationService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private UserRegistrationStatusRepository userRegistrationStatusRepository;
 
 	public UserRegistrationResponse registerUser(UserRegistrationRequest userRegistrationRequest) {
 		UserRegistrationResponse userRegistrationResponse = new UserRegistrationResponse();
 		try {
 			Optional<Role> role = roleRepository.findById(userRegistrationRequest.getRole());
+			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(1);
 			System.out.println(role.get());
 			System.out.println(userRegistrationRequest.getRole());
 			User user = new User();
@@ -53,7 +59,7 @@ public class RegistrationService {
 			user.setPermanentZipcode(userRegistrationRequest.getPermanentZipcode());
 			user.setRole(role.get());
 			user.setSecurityQuestion(userRegistrationRequest.getSecurityQuestion());
-			user.setRegistrationStatus(1);
+			user.setRegistrationStatus(userRegistrationStatus.get());
 
 			User userResponse = userRepository.save(user);
 			userRegistrationResponse.setId(userResponse.getId());
@@ -99,24 +105,27 @@ public class RegistrationService {
 	public void userRegistrationVerification(String emailID) {
 
 		User tempUser = userRepository.findByEmailID(emailID);
-		if (tempUser != null && tempUser.getRegistrationStatus() == 1) {
-			tempUser.setRegistrationStatus(2);
+		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1) {
+			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(2);
+			tempUser.setRegistrationStatus(userRegistrationStatus.get());
 			userRepository.save(tempUser);
 		}
 	}
 
 	public void userRegistrationVerificationRejection(String emailID) {
 		User tempUser = userRepository.findByEmailID(emailID);
-		if (tempUser != null && tempUser.getRegistrationStatus() == 1) {
-			tempUser.setRegistrationStatus(3);
+		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1) {
+			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(3);
+			tempUser.setRegistrationStatus(userRegistrationStatus.get());
 			userRepository.save(tempUser);
 		}
 	}
 
 	public void userEmployeeRegistrationVerification(String emailID) {
 		User tempUser = userRepository.findByEmailID(emailID);
-		if (tempUser != null && tempUser.getRegistrationStatus() == 1) {
-			tempUser.setRegistrationStatus(2);
+		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1) {
+			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(2);
+			tempUser.setRegistrationStatus(userRegistrationStatus.get());
 			userRepository.save(tempUser);
 		}
 
@@ -125,8 +134,9 @@ public class RegistrationService {
 	public void userEmployeeRegistrationVerificationRejection(String emailID) {
 
 		User tempUser = userRepository.findByEmailID(emailID);
-		if (tempUser != null && tempUser.getRegistrationStatus() == 1) {
-			tempUser.setRegistrationStatus(3);
+		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1) {
+			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(3);
+			tempUser.setRegistrationStatus(userRegistrationStatus.get());
 			userRepository.save(tempUser);
 		}
 

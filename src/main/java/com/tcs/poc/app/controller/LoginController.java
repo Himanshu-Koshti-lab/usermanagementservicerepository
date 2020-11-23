@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tcs.poc.app.model.UserForgotPasswordOtpGenRequest;
 import com.tcs.poc.app.model.UserForgotPasswordOtpValidationRequest;
 import com.tcs.poc.app.model.UserForgotPasswordQuestionRequest;
-import com.tcs.poc.app.model.UserLoginRequest;
-import com.tcs.poc.app.model.UserLoginResponse;
 import com.tcs.poc.app.service.LoginService;
 
 
@@ -23,10 +21,6 @@ public class LoginController {
 	private LoginService service;
 
 	
-	@PostMapping(value = "/login")
-	public UserLoginResponse loginUser(@RequestBody UserLoginRequest user) throws Exception {
-		return service.GetUserLogin(user);
-	}
 	
 	
 	

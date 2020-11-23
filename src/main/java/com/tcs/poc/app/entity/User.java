@@ -97,11 +97,15 @@ public class User {
     @Column(name="modified_by")
     private String modifiedBy;
     
-    @Column(name="registrationStatus")
-    private int registrationStatus;
+//    @Column(name="registrationStatus")
+//    private int registrationStatus;
     
     @OneToOne
     @JoinColumn(name = "role", referencedColumnName = "id")
     private Role role;
+    
+    @OneToOne
+    @JoinColumn(name = "registrationStatus", referencedColumnName = "registrationStatusId")
+    private UserRegistrationStatus registrationStatus;
     
 }

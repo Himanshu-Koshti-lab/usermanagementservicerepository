@@ -43,7 +43,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		.authorizeRequests().antMatchers("/oauth/token","/login","/service/register-user","/forgotPasswordByQuestion","/forgotPasswordByOtp","/VerifyOtp").permitAll()
 //		.antMatchers("/Admin").hasRole("ADMIN")
 //		.antMatchers("/User").hasRole("USER")
-		.antMatchers("/Admin").hasRole("ADMIN")
+		.antMatchers("/Admin","/service/register-userRegistrationVerify","/service/register-userRegistrationReject").hasRole("ADMIN")
 		.antMatchers("/Customer").hasRole("CUSTOMER")
 		.antMatchers("/Employee").hasRole("EMPLOYEE")
 		.anyRequest().authenticated()
