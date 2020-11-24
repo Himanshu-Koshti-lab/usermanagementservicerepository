@@ -24,7 +24,10 @@ public class UserDetailServiceImpl implements UserDetailsService{
 		User userEntity = userRepo.findByEmailID(email);
 		if(userEntity == null)
 			throw new UsernameNotFoundException("User not Found " + email );
-		
+		if(userEntity.getRegistrationStatus().getRegistrationStatusId()==1)
+		{
+			throw new UsernameNotFoundException("User account not approved, pending for review " + email );
+		}
 		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userEntity.getRole().getRoleName());
 		System.out.println(userEntity.getEmailID()+"   "+userEntity.getPassword());
 		//GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userEntity.getRole().getRoleNaam());//newAdded
