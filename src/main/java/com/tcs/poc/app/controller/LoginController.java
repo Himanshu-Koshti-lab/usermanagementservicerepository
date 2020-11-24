@@ -25,7 +25,7 @@ public class LoginController {
 	
 	
 	@PostMapping(value = "/forgotPasswordByOtp")
-	public Boolean forgotPasswordByOtp(@RequestBody UserForgotPasswordOtpGenRequest user) throws Exception{
+	public int forgotPasswordByOtp(@RequestBody UserForgotPasswordOtpGenRequest user) throws Exception{
 		return service.forgotPasswordByOtp(user);	
 	}
 	

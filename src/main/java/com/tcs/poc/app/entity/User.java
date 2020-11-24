@@ -97,8 +97,8 @@ public class User {
     @Column(name="modified_by")
     private String modifiedBy;
     
-//    @Column(name="registrationStatus")
-//    private int registrationStatus;
+    @Column(name="OTP")
+    private int OTP;
     
     @OneToOne
     @JoinColumn(name = "role", referencedColumnName = "id")

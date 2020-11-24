@@ -60,6 +60,7 @@ public class RegistrationService {
 			user.setRole(role.get());
 			user.setSecurityQuestion(userRegistrationRequest.getSecurityQuestion());
 			user.setRegistrationStatus(userRegistrationStatus.get());
+			user.setOTP(0);
 
 			User userResponse = userRepository.save(user);
 			userRegistrationResponse.setId(userResponse.getId());

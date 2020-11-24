@@ -20,7 +20,7 @@ public class LoginService {
 	@Autowired
 	public UserRepository repository;
 	public String DNF = "Data Not Found ";
-	public int otp;
+	public int otp = 0;
 
 	@Autowired
 	private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
@@ -28,7 +28,7 @@ public class LoginService {
 	
 
 
-	public boolean forgotPasswordByOtp(UserForgotPasswordOtpGenRequest user) throws Exception {
+	public int forgotPasswordByOtp(UserForgotPasswordOtpGenRequest user) throws Exception {
 		String emailString = user.getEmailID();
 		if (emailString == null || "".equals(emailString)) {
 			throw new Exception("Please fill Email");
@@ -39,9 +39,11 @@ public class LoginService {
 			} else if (temp.getEmailID() != null && !temp.getEmailID().isEmpty()) {
 				otp = (int) (Math.random() * 10000);
 				System.out.println(otp);
-				return true;
+				temp.setOTP(otp);
+				repository.save(temp);
+				return otp;
 			}
-			return false;
+			return otp;
 		}
 	}
 
@@ -59,8 +61,9 @@ public class LoginService {
 			if (ExistingUser == null) {
 				throw new Exception(DNF);
 			} else {
-				if (user.getOtp() == otp) {
+				if (user.getOtp() == ExistingUser.getOTP()) {
 					ExistingUser.setPassword(bcryptPasswordEncoder.encode(user.getPassword()));
+					ExistingUser.setOTP(0);
 					repository.save(ExistingUser);
 					return true;
 				}
