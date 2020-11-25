@@ -106,7 +106,7 @@ public class RegistrationService {
 	public void userRegistrationVerification(String emailID) {
 
 		User tempUser = userRepository.findByEmailID(emailID);
-		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1) {
+		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1 && tempUser.getRole().getId() == 1) {
 			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(2);
 			tempUser.setRegistrationStatus(userRegistrationStatus.get());
 			userRepository.save(tempUser);
@@ -115,7 +115,7 @@ public class RegistrationService {
 
 	public void userRegistrationVerificationRejection(String emailID) {
 		User tempUser = userRepository.findByEmailID(emailID);
-		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1) {
+		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1  && tempUser.getRole().getId() == 1) {
 			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(3);
 			tempUser.setRegistrationStatus(userRegistrationStatus.get());
 			userRepository.save(tempUser);
@@ -124,7 +124,7 @@ public class RegistrationService {
 
 	public void userEmployeeRegistrationVerification(String emailID) {
 		User tempUser = userRepository.findByEmailID(emailID);
-		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1) {
+		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1  && tempUser.getRole().getId() == 2) {
 			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(2);
 			tempUser.setRegistrationStatus(userRegistrationStatus.get());
 			userRepository.save(tempUser);
@@ -135,7 +135,7 @@ public class RegistrationService {
 	public void userEmployeeRegistrationVerificationRejection(String emailID) {
 
 		User tempUser = userRepository.findByEmailID(emailID);
-		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1) {
+		if (tempUser != null && tempUser.getRegistrationStatus().getRegistrationStatusId() == 1  && tempUser.getRole().getId() == 2) {
 			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(3);
 			tempUser.setRegistrationStatus(userRegistrationStatus.get());
 			userRepository.save(tempUser);
