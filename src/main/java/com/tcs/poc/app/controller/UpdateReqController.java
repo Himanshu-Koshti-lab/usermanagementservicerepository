@@ -21,23 +21,23 @@ public class UpdateReqController {
 	@Autowired
 	public UserUpdateReqService updateService;
 
-	@PostMapping("/Request")
+	@PostMapping(value="/Request")
 	public UserUpdateRequest addUserUpdateReq(@RequestBody UserUpdateRequest request) throws Exception {
 		return updateService.saveUserRequest(request);
 	}
 
-	@GetMapping("/requestlist")
+	@GetMapping(value="/requestlist")
 	public List<UserUpdateRequest> findAllRequests() {
 		return updateService.getUserRequest();
 	}
 
-	@PostMapping("/RequestVerifyUpdate")
+	@PostMapping(value="/RequestVerifyUpdate")
 	public void UpdateRequestApproval(@RequestBody UserUpdateRequest request) {
 		System.out.println(request.getEmailID());
 		updateService.UpdateRequestApproval(request);
 	}
 
-	@PostMapping("/RequestReject")
+	@PostMapping(value="/RequestReject")
 	public void UpdateRequestReject(@RequestBody UserUpdateRequest request) {
 		System.out.println(request.getEmailID());
 		updateService.UpdateRequestReject(request);

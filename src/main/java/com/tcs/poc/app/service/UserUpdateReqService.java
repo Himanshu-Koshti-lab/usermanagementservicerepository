@@ -49,7 +49,7 @@ public class UserUpdateReqService {
 			request.setUserRequestStatus(status);
 			repository.save(request);
 			temp1.setMobileNo(temp2.getNewMobileNo());
-			userRepo.save(temp1);
+//			userRepo.save(temp1);
 		}
 	}
 
