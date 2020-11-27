@@ -1,12 +1,15 @@
 package com.tcs.poc.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tcs.poc.app.entity.User;
+import com.tcs.poc.app.model.UserForgotPasswordQuestionRequest;
 import com.tcs.poc.app.model.UserRegistrationRequest;
 import com.tcs.poc.app.model.UserRegistrationResponse;
 import com.tcs.poc.app.model.UserRegistrationVerificationRequest;
