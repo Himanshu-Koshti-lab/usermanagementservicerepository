@@ -12,31 +12,24 @@ import com.tcs.poc.app.model.UserForgotPasswordOtpValidationRequest;
 import com.tcs.poc.app.model.UserForgotPasswordQuestionRequest;
 import com.tcs.poc.app.service.LoginService;
 
-
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
 public class LoginController {
 
 	@Autowired
 	private LoginService service;
 
-	
-	
-	
-	
 	@PostMapping(value = "/forgotPasswordByOtp")
-	public int forgotPasswordByOtp(@RequestBody UserForgotPasswordOtpGenRequest user) throws Exception{
-		return service.forgotPasswordByOtp(user);	
+	public int forgotPasswordByOtp(@RequestBody UserForgotPasswordOtpGenRequest user) throws Exception {
+		return service.forgotPasswordByOtp(user);
 	}
-	
+
 	@PostMapping(value = "/VerifyOtp")
-	public Boolean verfyOtp(@RequestBody UserForgotPasswordOtpValidationRequest user) throws Exception{
+	public Boolean verfyOtp(@RequestBody UserForgotPasswordOtpValidationRequest user) throws Exception {
 		return service.VerifyOtp(user);
 	}
-	
+
 	@PutMapping(value = "/forgotPasswordByQuestion")
-	public boolean forgotPasswordByQuestion(@RequestBody UserForgotPasswordQuestionRequest user) throws Exception{
-		return service.forgotPasswordByQuestion(user);	
+	public boolean forgotPasswordByQuestion(@RequestBody UserForgotPasswordQuestionRequest user) throws Exception {
+		return service.forgotPasswordByQuestion(user);
 	}
 }
-

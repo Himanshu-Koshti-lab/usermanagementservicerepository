@@ -25,25 +25,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-//		http
-//			.csrf()
-//				.disable()
-//			.formLogin()
-//				.disable()
-//			.httpBasic()
-//				.disable()
-//			.sessionManagement()
-//			.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-//			.and()
-//			.authorizeRequests()
-//			.anyRequest()
-//			.authenticated();
 		http
 		.csrf().disable()
-		.authorizeRequests().antMatchers("/oauth/token","/login","/service/register-user","/forgotPasswordByQuestion","/forgotPasswordByOtp","/VerifyOtp","/Request").permitAll()
-		.antMatchers("/Admin","/service/register-userRegistrationVerify","/service/register-userEmployeeRegistrationVerify","/service/register-userRegistrationReject","/service/register-userEmployeeRegistrationReject","/requestlist","/RequestVerifyUpdate","/RequestReject").hasRole("ADMIN")
-		.antMatchers("/Customer").hasRole("CUSTOMER")
-		.antMatchers("/Employee").hasRole("EMPLOYEE")
+		.authorizeRequests()
+		.antMatchers("/oauth/token","/service/register-user","/forgotPasswordByQuestion","/forgotPasswordByOtp","/VerifyOtp").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.cors();
