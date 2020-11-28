@@ -1,12 +1,16 @@
 package com.tcs.poc.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tcs.poc.app.model.ChangePasswordRequest;
+import com.tcs.poc.app.model.ChangePasswordResponse;
 import com.tcs.poc.app.model.UserForgotPasswordOtpGenRequest;
 import com.tcs.poc.app.model.UserForgotPasswordOtpValidationRequest;
 import com.tcs.poc.app.model.UserForgotPasswordQuestionRequest;
@@ -31,5 +35,17 @@ public class LoginController {
 	@PutMapping(value = "/forgotPasswordByQuestion")
 	public boolean forgotPasswordByQuestion(@RequestBody UserForgotPasswordQuestionRequest user) throws Exception {
 		return service.forgotPasswordByQuestion(user);
+	}
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')")
+	@PutMapping(value = "/UpdatePassword")
+	public ChangePasswordResponse updatePassword(@RequestBody ChangePasswordRequest request,
+			@AuthenticationPrincipal String emailID) {
+		ChangePasswordResponse response = new ChangePasswordResponse();
+		if (request.getEmailID().equals(emailID))
+			return service.changePassword(request);
+		response.setStatus(false);
+		response.setMessage("Logged User Mismatch");
+		return response;
 	}
 }
