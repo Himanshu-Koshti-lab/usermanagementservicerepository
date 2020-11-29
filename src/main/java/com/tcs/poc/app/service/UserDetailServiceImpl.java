@@ -28,7 +28,7 @@ public class UserDetailServiceImpl implements UserDetailsService{
 		{
 			throw new UsernameNotFoundException("User account not approved, pending for review " + email );
 		}
-		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userEntity.getRole().getRoleName());
+		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" +userEntity.getRole().getRoleName());
 		return new org.springframework.security.core.userdetails.User(userEntity.getEmailID(),userEntity.getPassword(),Arrays.asList(grantedAuthority));
 	}
 
