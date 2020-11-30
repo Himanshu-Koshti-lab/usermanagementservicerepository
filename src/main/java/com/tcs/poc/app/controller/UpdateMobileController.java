@@ -27,33 +27,36 @@ public class UpdateMobileController {
 	@Autowired
 	public UpdateMobileNoService service;
 
-	@PreAuthorize("hasRole('ROLE_CUSTOMER','ROLE_EMPLOYEE','ROLE_ADMIN')")
-	@PostMapping(value = "/Request")
+	@PreAuthorize("hasAnyRole('ROLE_CUSTOMER','ROLE_EMPLOYEE','ROLE_ADMIN')")
+	@PostMapping(value = "/MobileUpdateRequest")
 	public UpdateMobileResponse addUserUpdateReq(@RequestBody UserUpdateRequest request,
 			@AuthenticationPrincipal String emailID) throws Exception {
 		UpdateMobileResponse response = new UpdateMobileResponse();
-		if (request.getEmailID().equals(emailID))
+		System.out.println(request.getEmailID());
+		System.out.println(emailID);
+		if (request.getEmailID().equals(emailID)) {
 			return service.saveUserRequest(request);
-		response.setStatus(0);
-		response.setMessage("Logged User not Match");
-		return response;
-
+		}else {
+			response.setStatus(0);
+			response.setMessage("Logged User not Match");
+			return response;
+		}
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')")
 	@GetMapping(value = "/requestlist")
 	public List<UserUpdateRequest> findAllRequests() {
 		return service.getUserRequests();
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')")
 	@PostMapping(value = "/UpdateMobileNoRequestApproved")
 	public UpdateMobileResponse UpdateMobileNoApproved(@RequestBody UpdateMobileRequest request) {
 		System.out.println(request.getEmailID());
 		return service.UpdateMobileNoApproved(request);
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')")
 	@PostMapping(value = "/UpdateMobileNoRequestReject")
 	public UpdateMobileResponse UpdateMobileNoRejected(@RequestBody UpdateMobileRequest request) {
 		System.out.println(request.getEmailID());

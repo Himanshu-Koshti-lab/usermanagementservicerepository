@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class UpdateMobileRequest {
 
-	private long newmobileno;
+	private int status;
 	private String emailID;
 }

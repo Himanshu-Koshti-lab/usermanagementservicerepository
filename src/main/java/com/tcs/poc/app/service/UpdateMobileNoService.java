@@ -14,7 +14,7 @@ import com.tcs.poc.app.repository.UserUpdateReqRepository;
 import com.tcs.poc.app.repository.UserUpdateRequestStatusRepo;
 
 @Service
-public class UpdateMobileNoService{
+public class UpdateMobileNoService {
 
 	@Autowired
 	public UserUpdateReqRepository repository;
@@ -25,21 +25,39 @@ public class UpdateMobileNoService{
 	@Autowired
 	public UserUpdateRequestStatusRepo StatusRepo;
 
-	public UpdateMobileResponse saveUserRequest(UserUpdateRequest request){
+	public UpdateMobileResponse saveUserRequest(UserUpdateRequest request) {
 		User temp = userRepo.findByEmailID(request.getEmailID());
 		UpdateMobileResponse mobileResponse = new UpdateMobileResponse();
+		UserUpdateRequest reqtable = repository.findByEmailID(request.getEmailID());
 		if (temp == null) {
 			mobileResponse.setStatus(0);
 			mobileResponse.setMessage("Request not Submited Due to User Not Found with this EmailID");
 			return mobileResponse;
+		} else if (reqtable != null && reqtable.getUserRequestStatus().getId() == 1) {
+			mobileResponse.setStatus(0);
+			mobileResponse.setMessage("One Request Already Submited for this EmailID Pending for Approval");
+			return mobileResponse;
 		} else {
 			UserUpdateRequestStatus status = StatusRepo.findById(1);
+			request.setUser_id(temp.getId());
 			request.setUserRequestStatus(status);
 			repository.save(request);
 			mobileResponse.setStatus(1);
 			mobileResponse.setMessage("Request submited for Approval");
 			return mobileResponse;
 		}
+
+//		if (temp == null) {
+//			mobileResponse.setStatus(0);
+//			mobileResponse.setMessage("Request not Submited Due to User Not Found with this EmailID");
+//			return mobileResponse;
+//		} else if (reqtable.getEmailID().equals(request.getEmailID()) && reqtable != null){
+//			mobileResponse.setStatus(0);
+//			mobileResponse.setMessage("One Request Already Submited for this EmailID Pending for Approval");
+//			return mobileResponse;
+//		}
+//
+
 	}
 
 	public List<UserUpdateRequest> getUserRequests() {
@@ -47,10 +65,22 @@ public class UpdateMobileNoService{
 	}
 
 	public UpdateMobileResponse UpdateMobileNoApproved(UpdateMobileRequest request) {
-		UserUpdateRequest reqtable = repository.findByEmailID(request.getEmailID());
-		User maintable = userRepo.findByEmailID(request.getEmailID());
+		List<UserUpdateRequest> reqtable1 = repository.findAll();
+		UserUpdateRequest reqtable = new UserUpdateRequest();
 		UpdateMobileResponse response = new UpdateMobileResponse();
-		if (reqtable.getEmailID().equals(maintable.getEmailID()) && reqtable.getUserRequestStatus().getId() == 1) {
+		System.out.println(reqtable1.size());
+		for(int i=0;i<reqtable1.size();i++) {
+			if(reqtable1.get(i).getUserRequestStatus().getId() == 1 && reqtable1.get(i).getEmailID().equals(request.getEmailID())) {
+				reqtable = reqtable1.get(i);
+			}
+		}
+		User maintable = userRepo.findByEmailID(request.getEmailID());
+		if(reqtable == null) {
+			response.setStatus(0);
+			response.setMessage("User not Found in Request Table");
+			return response;
+		}
+		if (reqtable.getEmailID().equals(maintable.getEmailID())) {
 			UserUpdateRequestStatus status = StatusRepo.findById(2);
 			reqtable.setUserRequestStatus(status);
 			repository.save(reqtable);
@@ -59,27 +89,42 @@ public class UpdateMobileNoService{
 			response.setStatus(1);
 			response.setMessage("Mobile Number Updated Request Approved");
 			return response;
+		}else {
+			response.setStatus(0);
+			response.setMessage("User not Found in Main Table");
+			return response;
 		}
-		response.setStatus(0);
-		response.setMessage("User not Found in Main Table");
-		return response;
+		
 
 	}
 
 	public UpdateMobileResponse UpdateMobileNoRejected(UpdateMobileRequest request) {
+		List<UserUpdateRequest> reqtable1 = repository.findAll();
+		UserUpdateRequest reqtable = new UserUpdateRequest();
 		UpdateMobileResponse response = new UpdateMobileResponse();
-		UserUpdateRequest reqtable = repository.findByEmailID(request.getEmailID());
+		for(int i=0;i<reqtable1.size();i++) {
+			if(reqtable1.get(i).getUserRequestStatus().getId() == 1 && reqtable1.get(i).getEmailID().equals(request.getEmailID())) {
+				reqtable =  reqtable1.get(i);
+			}
+		}
 		User maintable = userRepo.findByEmailID(request.getEmailID());
-		if (reqtable.getEmailID().equals(maintable.getEmailID()) && reqtable.getUserRequestStatus().getId() == 1) {
+		if(reqtable == null) {
+			response.setStatus(0);
+			response.setMessage("User not Found in Request Table");
+			return response;
+		}
+		if (reqtable.getEmailID().equals(maintable.getEmailID()) ) {
 			UserUpdateRequestStatus status = StatusRepo.findById(3);
 			reqtable.setUserRequestStatus(status);
 			repository.save(reqtable);
 			response.setStatus(1);
 			response.setMessage("Mobile Number Update Request Rejected");
 			return response;
+		}else {
+			response.setStatus(0);
+			response.setMessage("User not Found in Main Table");
+			return response;
 		}
-		response.setStatus(0);
-		response.setMessage("User not Found in Main Table");
-		return response;
+		
 	}
 }
