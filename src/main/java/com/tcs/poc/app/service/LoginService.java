@@ -98,8 +98,8 @@ public class LoginService {
 		}
 	}
 	
-	public ChangePasswordResponse changePassword(ChangePasswordRequest request){
-		User user = repository.findByEmailID(request.getEmailID());
+	public ChangePasswordResponse changePassword(ChangePasswordRequest request , String emailID){
+		User user = repository.findByEmailID(emailID);
 		ChangePasswordResponse response = new ChangePasswordResponse();
 		if(user == null) {
 			response.setStatus(false);

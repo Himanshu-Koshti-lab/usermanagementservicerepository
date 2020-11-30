@@ -42,10 +42,10 @@ public class LoginController {
 	public ChangePasswordResponse updatePassword(@RequestBody ChangePasswordRequest request,
 			@AuthenticationPrincipal String emailID) {
 		ChangePasswordResponse response = new ChangePasswordResponse();
-		if (request.getEmailID().equals(emailID))
-			return service.changePassword(request);
-		response.setStatus(false);
-		response.setMessage("Logged User Mismatch");
-		return response;
+		//if (request.getEmailID().equals(emailID))
+			return service.changePassword(request,emailID);
+//		response.setStatus(false);
+//		response.setMessage("Logged User Mismatch");
+//		return response;
 	}
 }
