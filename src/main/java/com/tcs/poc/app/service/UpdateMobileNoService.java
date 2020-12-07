@@ -1,5 +1,6 @@
 package com.tcs.poc.app.service;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,10 @@ public class UpdateMobileNoService {
 		} else {
 			UserUpdateRequestStatus status = StatusRepo.findById(1);
 			request.setUser_id(temp.getId());
+			request.setCreatedDate(new Date());
+			request.setLastModifiedDate(new Date());
+			request.setCreatedBy(temp.getEmailID());
+			request.setModifiedBy(temp.getEmailID());
 			request.setUserRequestStatus(status);
 			repository.save(request);
 			mobileResponse.setStatus(1);
@@ -108,6 +113,7 @@ public class UpdateMobileNoService {
 			}
 		}
 		User maintable = userRepo.findByEmailID(request.getEmailID());
+		System.out.println(request.getEmailID());
 		if(reqtable == null) {
 			response.setStatus(0);
 			response.setMessage("User not Found in Request Table");
