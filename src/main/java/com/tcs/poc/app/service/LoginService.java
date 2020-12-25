@@ -12,6 +12,7 @@ import com.tcs.poc.app.model.ChangePasswordResponse;
 import com.tcs.poc.app.model.UserForgotPasswordOtpGenRequest;
 import com.tcs.poc.app.model.UserForgotPasswordOtpValidationRequest;
 import com.tcs.poc.app.model.UserForgotPasswordQuestionRequest;
+import com.tcs.poc.app.model.UserStatusReq;
 import com.tcs.poc.app.repository.UserRepository;
 
 @Service
@@ -123,5 +124,11 @@ public class LoginService {
 			response.setMessage("Our Input Current Password Doesnt Match In DataBase");
 			return response;
 		}		
+	}
+
+	public int UserInfo(UserForgotPasswordOtpGenRequest user) {
+		User user1 = repository.findByEmailID(user.getEmailID());
+		System.out.println(user1.getRegistrationStatus().getRegistrationStatusId());
+		return user1.getRegistrationStatus().getRegistrationStatusId();
 	}
 }
