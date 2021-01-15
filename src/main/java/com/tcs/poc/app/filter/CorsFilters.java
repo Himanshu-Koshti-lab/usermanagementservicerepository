@@ -24,22 +24,19 @@ protected static final String[] ALLOWED_HEADERS = {"Origin", "Accept", "X-Reques
  @Override
 public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 throws IOException, ServletException {
-HttpServletResponse response = (HttpServletResponse) res;
-String clientHost = getClientHost(req);
-if(clientHost == null) {
-response.setHeader("Access-Control-Allow-Origin", "*");
-} else {
-response.setHeader("Access-Control-Allow-Origin", clientHost);
-}
-response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
-response.setHeader("Access-Control-Max-Age", "3600");
-response.setHeader("Access-Control-Allow-Credentials", "true");
-String allowedHeaders = Arrays.toString(ALLOWED_HEADERS);
-allowedHeaders = allowedHeaders.substring(1, allowedHeaders.length() - 1);
-response.setHeader("Access-Control-Allow-Headers", allowedHeaders);
+	 HttpServletRequest request = (HttpServletRequest) req;
+	    HttpServletResponse response = (HttpServletResponse) res;
 
- chain.doFilter(req, res);
-}
+	    response.addHeader("Access-Control-Allow-Origin", "*");
+
+	    if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+	        response.setHeader("Access-Control-Allow-Methods", "POST,GET,DELETE");
+	        response.setHeader("Access-Control-Max-Age", "3600");
+	        response.setHeader("Access-Control-Allow-Headers", "content-type,access-control-request-headers,access-control-request-method,accept,origin,authorization,x-requested-with");
+	        response.setStatus(HttpServletResponse.SC_OK);
+	    } else {
+	        chain.doFilter(req, res);
+	    }}
 
  private String getClientHost(ServletRequest req) {
 HttpServletRequest request = (HttpServletRequest) req;
