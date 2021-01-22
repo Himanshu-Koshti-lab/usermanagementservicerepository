@@ -1,6 +1,7 @@
 package com.tcs.poc.app.service;
 
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -130,5 +131,9 @@ public class LoginService {
 		User user1 = repository.findByEmailID(user.getEmailID());
 		System.out.println(user1.getRegistrationStatus().getRegistrationStatusId());
 		return user1.getRegistrationStatus().getRegistrationStatusId();
+	}
+
+	public List<User> getAllUsers() {
+		return repository.findAll();
 	}
 }

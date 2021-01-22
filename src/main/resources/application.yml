@@ -1,22 +1,13 @@
-#eureka:
-#  client:
-#    registerWithEureka: true
-#    fetchRegistry: false
-#    serviceUrl:
-#      defaultZone: http://localhost:8080/eureka/
-#  instance:
-#    hostname: localhost
-#server:
-#  port: 8081
-#spring:
-#  application:
-#    name: userManagement-service
-    
-     
 security:
+  basic:
+    enabled: false
   oauth2:
     client:
       clientId: ABCD
       clientSecret: ABCD
-      
+      accessTokenUri: http://localhost:8081/oauth/token
+      userAuthorizationUri: http://localhost:8081/oauth/authorize
+      token-name: access_token
+    resource:
+      userInfoUri: http://localhost:8081/userinfo
       
