@@ -5,16 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tcs.poc.app.entity.UserUpdateRequest;
-import com.tcs.poc.app.model.ChangePasswordResponse;
 import com.tcs.poc.app.model.UpdateMobileRequest;
 import com.tcs.poc.app.model.UpdateMobileResponse;
 import com.tcs.poc.app.service.UpdateMobileNoService;

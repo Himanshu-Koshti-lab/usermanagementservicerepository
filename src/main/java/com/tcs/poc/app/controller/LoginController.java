@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,7 +19,6 @@ import com.tcs.poc.app.model.ChangePasswordResponse;
 import com.tcs.poc.app.model.UserForgotPasswordOtpGenRequest;
 import com.tcs.poc.app.model.UserForgotPasswordOtpValidationRequest;
 import com.tcs.poc.app.model.UserForgotPasswordQuestionRequest;
-import com.tcs.poc.app.model.UserStatusReq;
 import com.tcs.poc.app.service.LoginService;
 import com.tcs.poc.app.service.UserDetailServiceImpl;
 
