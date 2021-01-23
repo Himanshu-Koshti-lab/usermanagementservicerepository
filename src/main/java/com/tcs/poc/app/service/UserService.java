@@ -68,7 +68,7 @@ public class UserService {
 	
 	public List<GetAllCustomerResponse> getCustomerList() {
 		List<User> tempUser = userRepository.findAll();
-		List<GetAllCustomerResponse> tempCustomer = new ArrayList<GetAllCustomerResponse>();
+		List<GetAllCustomerResponse> tempCustomer = new ArrayList<>();
 
 		for (int i = 0; i < tempUser.size(); i++) {
 			if (tempUser.get(i).getRole().getRoleName().equals("CUSTOMER")) {
@@ -84,31 +84,12 @@ public class UserService {
 		}
 		return tempCustomer;
 	}
-	
-	
-	public List<GetAllCustomerResponse> getAll() {
-		List<User> tempUser = userRepository.findAll();
-		List<GetAllCustomerResponse> tempCustomer = new ArrayList<GetAllCustomerResponse>();
 
-		for (int i = 0; i < tempUser.size(); i++) {
-			if (tempUser.get(i).getRole().getRoleName().equals("CUSTOMER")) {
-				GetAllCustomerResponse tempCustomer1 = new GetAllCustomerResponse();
-				tempCustomer1.setId(tempUser.get(i).getId());
-				tempCustomer1.setFirstName(tempUser.get(i).getFirstName());
-				tempCustomer1.setLastName(tempUser.get(i).getLastName());
-				tempCustomer1.setEmailID(tempUser.get(i).getEmailID());
-				tempCustomer1.setDob(tempUser.get(i).getDob());
-				tempCustomer1.setRegistrationStatus(tempUser.get(i).getRegistrationStatus().getRegistrationStatusId());
-				tempCustomer.add(tempCustomer1);
-			}
-		}
-		return tempCustomer;
-	}
 
 	public List<GetAllEmployeeResponse> getEmployeeDetails() {
 
 		List<User> tempUser = userRepository.findAll();
-		List<GetAllEmployeeResponse> tempCustomer = new ArrayList<GetAllEmployeeResponse>();
+		List<GetAllEmployeeResponse> tempCustomer = new ArrayList<>();
 
 		for (int i = 0; i < tempUser.size(); i++) {
 			if (tempUser.get(i).getRole().getRoleName().equals("EMPLOYEE")) {
@@ -127,7 +108,7 @@ public class UserService {
 
 	public List<UserResponse> getAllUsers() {
 		List<User> tempUser = userRepository.findAll();
-		List<UserResponse> t1 = new ArrayList<UserResponse>();
+		List<UserResponse> t1 = new ArrayList<>();
 		for(int i = 0;i<tempUser.size();i++) {
 			UserResponse t2 = new UserResponse();
 			t2.setUser_id(tempUser.get(i).getId());
@@ -138,8 +119,8 @@ public class UserService {
 		return t1;
 	}
 
-	public List<UserResponse> AllUsers() {
-		List<UserResponse> temp = new ArrayList<UserResponse>();
+	public List<UserResponse> allUsers() {
+		List<UserResponse> temp = new ArrayList<>();
 		List<User> temp1 = userRepository.findAll();
 		for(int i=0;i<temp1.size();i++) {
 			UserResponse user = new UserResponse();
@@ -151,6 +132,17 @@ public class UserService {
 		}
 		
 		return temp;
+	}
+	
+	public UserResponse getUser(String email) {
+		User temp1 = userRepository.findByEmailID(email);
+			UserResponse user = new UserResponse();
+			user.setUser_id(temp1.getId());
+			user.setFirstName(temp1.getFirstName());
+			user.setLastName(temp1.getLastName());
+			user.setRole(temp1.getRole().getRoleName());
+	
+		return user;
 	}
 	
 	

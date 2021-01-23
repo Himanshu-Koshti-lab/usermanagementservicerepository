@@ -8,8 +8,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.tcs.poc.app.entity.User;
 import com.tcs.poc.app.model.GetAdmin;
 import com.tcs.poc.app.model.GetAllCustomerResponse;
 import com.tcs.poc.app.model.GetAllEmployeeResponse;
@@ -25,7 +23,6 @@ public class UserController {
 	@Autowired
 	public UserService userService;
 	
-//	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')")
 	@GetMapping(value = "/getCustomer")
 	@ResponseBody
@@ -51,17 +48,15 @@ public class UserController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_EMPLOYEE')")
 	@GetMapping(value = "/getCustomerList")
 	@ResponseBody
-	public List<GetAllCustomerResponse> getCustomerDetails() {
-		List<GetAllCustomerResponse> user = userService.getCustomerList();
-		return user;
+	public List<GetAllCustomerResponse> getCustomerDetails() {		
+		return userService.getCustomerList();
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/getEmployeeList")
 	@ResponseBody
 	public List<GetAllEmployeeResponse> getEmployeeDetails() {
-		List<GetAllEmployeeResponse> user = userService.getEmployeeDetails();
-		return user;
+		return userService.getEmployeeDetails();
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -74,7 +69,14 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/AllUsers")
 	@ResponseBody
-	public List<UserResponse> AllUsers() {
-		 return userService.AllUsers();	
+	public List<UserResponse> getAllUser() {
+		 return userService.allUsers();	
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')")
+	@GetMapping(value = "/getUser")
+	@ResponseBody
+	public UserResponse getUser(@AuthenticationPrincipal String emailID) {
+		 return userService.getUser(emailID);	
 	}
 }
