@@ -16,7 +16,6 @@ import com.tcs.poc.app.model.UpdateMobileResponse;
 import com.tcs.poc.app.service.UpdateMobileNoService;
 
 @RestController
-/* @CrossOrigin(origins = "http://localhost:4200") */
 
 public class UpdateMobileController {
 
