@@ -67,7 +67,7 @@ public class UserController {
 		 return userService.getAllUsers();	
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_EMPLOYEE')")
 	@GetMapping(value = "/AllUsers")
 	@ResponseBody
 	public List<UserResponse> getAllUser() {

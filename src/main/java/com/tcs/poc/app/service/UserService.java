@@ -128,6 +128,9 @@ public class UserService {
 			user.setFirstName(temp1.get(i).getFirstName());
 			user.setLastName(temp1.get(i).getLastName());
 			user.setRole(temp1.get(i).getRole().getRoleName());
+			user.setEmailID(temp1.get(i).getEmailID());
+			user.setMobileNo(temp1.get(i).getMobileNo());
+			user.setGender(temp1.get(i).getGender());
 			temp.add(user);
 		}
 		
