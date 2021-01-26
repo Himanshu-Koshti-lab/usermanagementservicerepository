@@ -141,6 +141,7 @@ public class UserService {
 		User temp1 = userRepository.findByEmailID(email);
 			UserResponse user = new UserResponse();
 			user.setUser_id(temp1.getId());
+			user.setEmailID(email);
 			user.setFirstName(temp1.getFirstName());
 			user.setLastName(temp1.getLastName());
 			user.setRole(temp1.getRole().getRoleName());

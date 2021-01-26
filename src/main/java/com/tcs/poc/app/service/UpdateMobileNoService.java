@@ -29,16 +29,19 @@ public class UpdateMobileNoService {
 	public UpdateMobileResponse saveUserRequest(UserUpdateRequest request) {
 		User temp = userRepo.findByEmailID(request.getEmailID());
 		UpdateMobileResponse mobileResponse = new UpdateMobileResponse();
-		UserUpdateRequest reqtable = repository.findByEmailID(request.getEmailID());
+		List<UserUpdateRequest> reqtable = repository.findAll();
 		if (temp == null) {
 			mobileResponse.setStatus(0);
 			mobileResponse.setMessage("Request not Submited Due to User Not Found with this EmailID");
 			return mobileResponse;
-		} else if (reqtable != null && reqtable.getUserRequestStatus().getId() == 1) {
-			mobileResponse.setStatus(0);
-			mobileResponse.setMessage("One Request Already Submited for this EmailID Pending for Approval");
-			return mobileResponse;
 		} else {
+			for(int i=0;i<reqtable.size();i++) {
+				if (reqtable != null && reqtable.get(i).getUserRequestStatus().getId() == 1 && reqtable.get(i).getEmailID().equals(request.getEmailID())) {
+					mobileResponse.setStatus(0);
+					mobileResponse.setMessage("One Request Already Submited for this EmailID Pending for Approval");
+					return mobileResponse;
+				}					
+			}
 			UserUpdateRequestStatus status = StatusRepo.findById(1);
 			request.setUser_id(temp.getId());
 			request.setCreatedDate(new Date());
@@ -50,19 +53,7 @@ public class UpdateMobileNoService {
 			mobileResponse.setStatus(1);
 			mobileResponse.setMessage("Request submited for Approval");
 			return mobileResponse;
-		}
-
-//		if (temp == null) {
-//			mobileResponse.setStatus(0);
-//			mobileResponse.setMessage("Request not Submited Due to User Not Found with this EmailID");
-//			return mobileResponse;
-//		} else if (reqtable.getEmailID().equals(request.getEmailID()) && reqtable != null){
-//			mobileResponse.setStatus(0);
-//			mobileResponse.setMessage("One Request Already Submited for this EmailID Pending for Approval");
-//			return mobileResponse;
-//		}
-//
-
+		} 
 	}
 
 	public List<UserUpdateRequest> getUserRequests() {

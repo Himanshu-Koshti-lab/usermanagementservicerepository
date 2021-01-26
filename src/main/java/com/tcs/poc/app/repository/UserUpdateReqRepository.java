@@ -10,4 +10,5 @@ import com.tcs.poc.app.entity.UserUpdateRequest;
 public interface UserUpdateReqRepository extends JpaRepository<UserUpdateRequest, Integer> {
 
 	UserUpdateRequest findByEmailID(String emailID);
+
 }
