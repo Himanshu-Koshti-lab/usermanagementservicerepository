@@ -64,7 +64,6 @@ public class UpdateMobileNoService {
 		List<UserUpdateRequest> reqtable1 = repository.findAll();
 		UserUpdateRequest reqtable = new UserUpdateRequest();
 		UpdateMobileResponse response = new UpdateMobileResponse();
-		System.out.println(reqtable1.size());
 		for(int i=0;i<reqtable1.size();i++) {
 			if(reqtable1.get(i).getUserRequestStatus().getId() == 1 && reqtable1.get(i).getEmailID().equals(request.getEmailID())) {
 				reqtable = reqtable1.get(i);
@@ -104,7 +103,6 @@ public class UpdateMobileNoService {
 			}
 		}
 		User maintable = userRepo.findByEmailID(request.getEmailID());
-		System.out.println(request.getEmailID());
 		if(reqtable == null) {
 			response.setStatus(0);
 			response.setMessage("User not Found in Request Table");

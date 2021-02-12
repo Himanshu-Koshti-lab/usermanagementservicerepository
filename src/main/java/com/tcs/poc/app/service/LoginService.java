@@ -56,8 +56,6 @@ public class LoginService {
 
 	public boolean VerifyOtp(UserForgotPasswordOtpValidationRequest user) throws Exception {
 		String emailString = user.getEmailID();
-		System.out.println(user.getOtp());
-		System.out.println(user.getEmailID());
 		if (emailString == null || "".equals(emailString)) {
 			throw new Exception("Please fill Email");
 		} else {
@@ -89,7 +87,6 @@ public class LoginService {
 				throw new Exception(DNF);
 			} else {
 				if (Question.equals(DBUser.getSecurityQuestion()) && Answer.equals(DBUser.getAnswer())) {
-					System.out.println("Inside If and Updating Password");
 					DBUser.setPassword(bcryptPasswordEncoder.encode(user.getPassword()));
 					repository.save(DBUser);
 					return true;
@@ -129,7 +126,6 @@ public class LoginService {
 
 	public int UserInfo(UserForgotPasswordOtpGenRequest user) {
 		User user1 = repository.findByEmailID(user.getEmailID());
-		System.out.println(user1.getRegistrationStatus().getRegistrationStatusId());
 		return user1.getRegistrationStatus().getRegistrationStatusId();
 	}
 

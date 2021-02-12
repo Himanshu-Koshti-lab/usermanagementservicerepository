@@ -48,8 +48,7 @@ public class LoginController {
 	
 	
 	@PostMapping(value = "/getuserStatus")
-	public int UserInfo(@RequestBody UserForgotPasswordOtpGenRequest user ){
-		System.out.println(user.getEmailID());
+	public int userInfo(@RequestBody UserForgotPasswordOtpGenRequest user ){
 		return service.UserInfo(user);
 	}
 

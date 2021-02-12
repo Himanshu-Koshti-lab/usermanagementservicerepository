@@ -32,8 +32,6 @@ public class RegistrationService {
 		try {
 			Optional<Role> role = roleRepository.findById(userRegistrationRequest.getRole());
 			Optional<UserRegistrationStatus> userRegistrationStatus=userRegistrationStatusRepository.findById(1);
-			System.out.println(role.get());
-			System.out.println(userRegistrationRequest.getRole());
 			User user = new User();
 			user.setAnswer(userRegistrationRequest.getAnswer());
 			user.setCreatedBy(userRegistrationRequest.getEmailID());

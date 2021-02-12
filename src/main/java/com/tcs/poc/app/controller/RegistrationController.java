@@ -39,7 +39,6 @@ public class RegistrationController {
 
 		long tempMobileNo = userRegistrationRequest.getMobileNo();
 
-		System.out.println(bcryptPasswordEncoder.encode(userRegistrationRequest.getPassword()));
 		userRegistrationRequest.setPassword(bcryptPasswordEncoder.encode(userRegistrationRequest.getPassword()));
 
 		if (tempEmailID != null && !"".equals(tempEmailID) && !"".equals(tempMobileNo)) {
@@ -74,7 +73,6 @@ public class RegistrationController {
 	@RequestMapping(method = RequestMethod.POST, value = "/register-userRegistrationVerify", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	// @PostMapping(value="/register-userRegistrationVerify")
 	public void userRegistrationVerification(@RequestBody UserRegistrationVerificationRequest user) {
-		System.out.println(user.getEmailID());
 		registerationService.userRegistrationVerification(user.getEmailID());
 	}
 
@@ -82,7 +80,6 @@ public class RegistrationController {
 	@RequestMapping(method = RequestMethod.POST, value = "/register-userRegistrationReject", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	// @PostMapping(value="/register-userRegistrationVerify")
 	public void userRegistrationVerificationRejection(@RequestBody UserRegistrationVerificationRequest user) {
-		System.out.println(user.getEmailID());
 		registerationService.userRegistrationVerificationRejection(user.getEmailID());
 	}
 
@@ -90,7 +87,6 @@ public class RegistrationController {
 	@RequestMapping(method = RequestMethod.POST, value = "/register-userEmployeeRegistrationVerify", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	// @PostMapping(value="/register-userRegistrationVerify")
 	public void userEmployeeRegistrationVerification(@RequestBody UserRegistrationVerificationRequest user) {
-		System.out.println(user.getEmailID());
 		registerationService.userEmployeeRegistrationVerification(user.getEmailID());
 	}
 
@@ -98,7 +94,6 @@ public class RegistrationController {
 	@RequestMapping(method = RequestMethod.POST, value = "/register-userEmployeeRegistrationReject", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	// @PostMapping(value="/register-userRegistrationVerify")
 	public void userEmployeeRegistrationVerificationRejection(@RequestBody UserRegistrationVerificationRequest user) {
-		System.out.println(user.getEmailID());
 		registerationService.userEmployeeRegistrationVerificationRejection(user.getEmailID());
 	}
 

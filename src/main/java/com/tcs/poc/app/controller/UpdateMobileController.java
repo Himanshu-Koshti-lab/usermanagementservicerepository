@@ -27,8 +27,6 @@ public class UpdateMobileController {
 	public UpdateMobileResponse addUserUpdateReq(@RequestBody UserUpdateRequest request,
 			@AuthenticationPrincipal String emailID) throws Exception {
 		UpdateMobileResponse response = new UpdateMobileResponse();
-		System.out.println(request.getEmailID());
-		System.out.println(emailID);
 		if (request.getEmailID().equals(emailID)) {
 			return service.saveUserRequest(request);
 		}else {
@@ -47,14 +45,12 @@ public class UpdateMobileController {
 	@PreAuthorize("hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')")
 	@PostMapping(value = "/UpdateMobileNoRequestApproved")
 	public UpdateMobileResponse UpdateMobileNoApproved(@RequestBody UpdateMobileRequest request) {
-		System.out.println(request.getEmailID());
 		return service.UpdateMobileNoApproved(request);
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_EMPLOYEE','ROLE_ADMIN')")
 	@PostMapping(value = "/UpdateMobileNoRequestReject")
 	public UpdateMobileResponse UpdateMobileNoRejected(@RequestBody UpdateMobileRequest request) {
-		System.out.println(request.getEmailID());
 		return service.UpdateMobileNoRejected(request);
 	}
 }
