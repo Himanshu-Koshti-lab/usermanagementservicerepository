@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tcs.poc.app.entity.User;
-import com.tcs.poc.app.model.GetAdmin;
+import com.tcs.poc.app.model.GetUser;
 import com.tcs.poc.app.model.GetAllCustomerResponse;
 import com.tcs.poc.app.model.GetAllEmployeeResponse;
-import com.tcs.poc.app.model.GetCustomer;
-import com.tcs.poc.app.model.GetEmployee;
 import com.tcs.poc.app.model.UserResponse;
 import com.tcs.poc.app.repository.UserRepository;
 
@@ -22,38 +20,9 @@ public class UserService {
 	public UserRepository userRepository;
 	
 	
-	public GetCustomer getCustomer(String emailID) {
+	public GetUser GetUser(String emailID) {
 		User user=userRepository.findByEmailID(emailID);
-		GetCustomer response=new GetCustomer();
-		response.setUser_id(user.getId());
-		response.setFirstName(user.getFirstName());
-		response.setLastName(user.getLastName());
-		response.setEmailID(user.getEmailID());
-		response.setMobileNo(user.getMobileNo());
-		response.setPermanentAddress(user.getPermanentAddress());
-		response.setPermanentCity(user.getPermanentCity());
-		response.setPermanentState(user.getPermanentState());
-		response.setPermanentZipcode(user.getPermanentZipcode());
-		return response;
-	}
-
-	public GetEmployee getEmployee(String emailID) {
-		User user=userRepository.findByEmailID(emailID);
-		GetEmployee response=new GetEmployee();
-		response.setFirstName(user.getFirstName());
-		response.setLastName(user.getLastName());
-		response.setEmailID(user.getEmailID());
-		response.setMobileNo(user.getMobileNo());
-		response.setPermanentAddress(user.getPermanentAddress());
-		response.setPermanentCity(user.getPermanentCity());
-		response.setPermanentState(user.getPermanentState());
-		response.setPermanentZipcode(user.getPermanentZipcode());
-		return response;
-	}
-
-	public GetAdmin getAdmin(String emailID) {
-		User user=userRepository.findByEmailID(emailID);
-		GetAdmin response=new GetAdmin();
+		GetUser response=new GetUser();
 		response.setFirstName(user.getFirstName());
 		response.setLastName(user.getLastName());
 		response.setEmailID(user.getEmailID());

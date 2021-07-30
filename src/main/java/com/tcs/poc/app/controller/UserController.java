@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tcs.poc.app.model.GetAdmin;
+import com.tcs.poc.app.model.GetUser;
 import com.tcs.poc.app.model.GetAllCustomerResponse;
 import com.tcs.poc.app.model.GetAllEmployeeResponse;
-import com.tcs.poc.app.model.GetCustomer;
-import com.tcs.poc.app.model.GetEmployee;
 import com.tcs.poc.app.model.UserResponse;
 import com.tcs.poc.app.service.UserService;
 
@@ -27,23 +25,23 @@ public class UserController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')")
 	@GetMapping(value = "/getCustomer")
 	@ResponseBody
-	public GetCustomer getCustomer(@AuthenticationPrincipal String emailID) {
-		return userService.getCustomer(emailID);
+	public GetUser getCustomer(@AuthenticationPrincipal String emailID) {
+		return userService.GetUser(emailID);
 	}
 
 	@PreAuthorize("hasRole('ROLE_EMPLOYEE')")
 	@GetMapping(value = "/getEmployee")
 	@ResponseBody
-	public GetEmployee getEmployee(@AuthenticationPrincipal String emailID) {
-		return userService.getEmployee(emailID);
+	public GetUser getEmployee(@AuthenticationPrincipal String emailID) {
+		return userService.GetUser(emailID);
 	}
 
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/getAdmin")
 	@ResponseBody
-	public GetAdmin getAdmin(@AuthenticationPrincipal String emailID) {
-		 return userService.getAdmin(emailID);	
+	public GetUser getAdmin(@AuthenticationPrincipal String emailID) {
+		 return userService.GetUser(emailID);	
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_EMPLOYEE')")
